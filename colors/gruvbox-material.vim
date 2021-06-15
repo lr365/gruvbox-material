@@ -238,8 +238,10 @@ if s:configuration.enable_bold
 else
   call gruvbox_material#highlight('Function', s:palette.green, s:palette.none)
 endif
-call gruvbox_material#highlight('String', s:palette.green, s:palette.none)
-call gruvbox_material#highlight('Character', s:palette.green, s:palette.none)
+" call gruvbox_material#highlight('String', s:palette.green, s:palette.none)
+" call gruvbox_material#highlight('Character', s:palette.green, s:palette.none)
+call gruvbox_material#highlight('String', s:palette.aqua, s:palette.none)
+call gruvbox_material#highlight('Character', s:palette.aqua, s:palette.none)
 call gruvbox_material#highlight('Constant', s:palette.aqua, s:palette.none)
 call gruvbox_material#highlight('Macro', s:palette.aqua, s:palette.none)
 call gruvbox_material#highlight('Identifier', s:palette.blue, s:palette.none)
