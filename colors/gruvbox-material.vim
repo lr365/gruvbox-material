@@ -369,20 +369,22 @@ endif
 if (has('termguicolors') && &termguicolors) || has('gui_running')
   " Definition
   let s:terminal = {
-        \ 'black':    &background ==# 'dark' ? s:palette.bg0 : s:palette.fg0,
-        \ 'red':      s:palette.red,
-        \ 'yellow':   s:palette.yellow,
-        \ 'green':    s:palette.green,
-        \ 'cyan':     s:palette.aqua,
-        \ 'blue':     s:palette.blue,
-        \ 'purple':   s:palette.purple,
-        \ 'white':    &background ==# 'dark' ? s:palette.fg0 : s:palette.bg0
+        \ 'black':         &background ==# 'dark' ? s:palette.bg0 : s:palette.fg0,
+        \ 'bright_black':  &background ==# 'dark' ? s:palette.bg5 : s:palette.fg1,
+        \ 'red':           s:palette.red,
+        \ 'yellow':        s:palette.yellow,
+        \ 'green':         s:palette.green,
+        \ 'cyan':          s:palette.aqua,
+        \ 'blue':          s:palette.blue,
+        \ 'purple':        s:palette.purple,
+        \ 'white':         &background ==# 'dark' ? s:palette.fg0 : s:palette.bg0,
+        \ 'bright_white':  &background ==# 'dark' ? s:palette.fg1 : s:palette.bg5,
         \ }
   " Implementation: {{{
   if !has('nvim')
     let g:terminal_ansi_colors = [s:terminal.black[0], s:terminal.red[0], s:terminal.green[0], s:terminal.yellow[0],
-          \ s:terminal.blue[0], s:terminal.purple[0], s:terminal.cyan[0], s:terminal.white[0], s:terminal.black[0], s:terminal.red[0],
-          \ s:terminal.green[0], s:terminal.yellow[0], s:terminal.blue[0], s:terminal.purple[0], s:terminal.cyan[0], s:terminal.white[0]]
+          \ s:terminal.blue[0], s:terminal.purple[0], s:terminal.cyan[0], s:terminal.white[0], s:terminal.bright_black[0], s:terminal.red[0],
+          \ s:terminal.green[0], s:terminal.yellow[0], s:terminal.blue[0], s:terminal.purple[0], s:terminal.cyan[0], s:terminal.bright_white[0]]
   else
     let g:terminal_color_0 = s:terminal.black[0]
     let g:terminal_color_1 = s:terminal.red[0]
@@ -392,14 +394,14 @@ if (has('termguicolors') && &termguicolors) || has('gui_running')
     let g:terminal_color_5 = s:terminal.purple[0]
     let g:terminal_color_6 = s:terminal.cyan[0]
     let g:terminal_color_7 = s:terminal.white[0]
-    let g:terminal_color_8 = s:terminal.black[0]
+    let g:terminal_color_8 = s:terminal.bright_black[0]
     let g:terminal_color_9 = s:terminal.red[0]
     let g:terminal_color_10 = s:terminal.green[0]
     let g:terminal_color_11 = s:terminal.yellow[0]
     let g:terminal_color_12 = s:terminal.blue[0]
     let g:terminal_color_13 = s:terminal.purple[0]
     let g:terminal_color_14 = s:terminal.cyan[0]
-    let g:terminal_color_15 = s:terminal.white[0]
+    let g:terminal_color_15 = s:terminal.bright_white[0]
   endif
   " }}}
 endif
@@ -449,7 +451,7 @@ highlight! link TSRepeat Red
 highlight! link TSString Aqua
 highlight! link TSStringEscape Green
 highlight! link TSStringRegex Green
-highlight! link TSStructure Orange
+highlight! link TSStructure Yellow
 highlight! link TSSymbol Fg
 highlight! link TSTag Orange
 highlight! link TSTagDelimiter Green
@@ -464,6 +466,50 @@ highlight! link TSVariableBuiltin BlueItalic
 " }}}
 " neoclide/coc.nvim {{{
 call gruvbox_material#highlight('CocHoverRange', s:palette.none, s:palette.none, 'bold,underline')
+highlight! link CocSem_angle TSTagDelimiter
+highlight! link CocSem_attribute TSAttribute
+highlight! link CocSem_bitwise TSOperator
+highlight! link CocSem_boolean TSBoolean
+highlight! link CocSem_brace TSPunctBracket
+highlight! link CocSem_bracket TSPunctBracket
+highlight! link CocSem_builtinAttribute TSAttribute
+highlight! link CocSem_builtinType TSTypeBuiltin
+highlight! link CocSem_character TSCharacter
+highlight! link CocSem_class TSType
+highlight! link CocSem_colon TSPunctDelimiter
+highlight! link CocSem_comma TSPunctDelimiter
+highlight! link CocSem_comment TSComment
+highlight! link CocSem_comparison TSOperator
+highlight! link CocSem_constParameter TSParameter
+highlight! link CocSem_dependent TSInclude
+highlight! link CocSem_dot TSOperator
+highlight! link CocSem_enum TSType
+highlight! link CocSem_enumMember TSProperty
+highlight! link CocSem_escapeSequence TSStringEscape
+highlight! link CocSem_formatSpecifier TSStringEscape
+highlight! link CocSem_function TSFunction
+highlight! link CocSem_interface TSType
+highlight! link CocSem_keyword TSKeyword
+highlight! link CocSem_label TSLabel
+highlight! link CocSem_logical TSOperator
+highlight! link CocSem_macro TSConstMacro
+highlight! link CocSem_method TSMethod
+highlight! link CocSem_namespace TSNamespace
+highlight! link CocSem_number TSNumber
+highlight! link CocSem_operator TSOperator
+highlight! link CocSem_parameter TSParameter
+highlight! link CocSem_parenthesis TSPunctBracket
+highlight! link CocSem_property TSProperty
+highlight! link CocSem_punctuation TSPunctDelimiter
+highlight! link CocSem_regexp TSStringRegex
+highlight! link CocSem_selfKeyword TSConstBuiltin
+highlight! link CocSem_semicolon TSPunctDelimiter
+highlight! link CocSem_string TSString
+highlight! link CocSem_struct TSStructure
+highlight! link CocSem_type TSType
+highlight! link CocSem_typeAlias TSType
+highlight! link CocSem_typeParameter TSType
+highlight! link CocSem_variable TSVariable
 highlight! link CocErrorFloat ErrorFloat
 highlight! link CocWarningFloat WarningFloat
 highlight! link CocInfoFloat InfoFloat
@@ -1576,23 +1622,23 @@ highlight! link cppSTLexception Purple
 highlight! link cppSTLVariable Aqua
 " }}}
 " chromatica: https://github.com/arakashic/chromatica.nvim {{{
-highlight! link Member Aqua
-highlight! link Variable Blue
-highlight! link Namespace Purple
-highlight! link EnumConstant Aqua
-highlight! link chromaticaException RedItalic
-highlight! link chromaticaCast Orange
-highlight! link OperatorOverload Orange
-highlight! link AccessQual Orange
-highlight! link Linkage Orange
-highlight! link AutoType Yellow
+highlight! link Member TSProperty
+highlight! link Variable TSVariable
+highlight! link Namespace TSNamespace
+highlight! link EnumConstant TSType
+highlight! link chromaticaException TSException
+highlight! link chromaticaCast TSLabel
+highlight! link OperatorOverload TSOperator
+highlight! link AccessQual TSOperator
+highlight! link Linkage TSOperator
+highlight! link AutoType TSType
 " }}}
 " vim-lsp-cxx-highlight https://github.com/jackguo380/vim-lsp-cxx-highlight {{{
 highlight! link LspCxxHlSkippedRegion Grey
-highlight! link LspCxxHlSkippedRegionBeginEnd PurpleItalic
-highlight! link LspCxxHlGroupEnumConstant Aqua
-highlight! link LspCxxHlGroupNamespace Purple
-highlight! link LspCxxHlGroupMemberVariable Aqua
+highlight! link LspCxxHlSkippedRegionBeginEnd TSKeyword
+highlight! link LspCxxHlGroupEnumConstant TSType
+highlight! link LspCxxHlGroupNamespace TSNamespace
+highlight! link LspCxxHlGroupMemberVariable TSProperty
 " }}}
 " ft_end }}}
 " ft_begin: objc {{{
@@ -1645,15 +1691,15 @@ highlight! link pythonDot Grey
 " }}}
 " semshi: https://github.com/numirias/semshi {{{
 call gruvbox_material#highlight('semshiUnresolved', s:palette.yellow, s:palette.none, 'undercurl')
-highlight! link semshiImported Purple
-highlight! link semshiParameter Blue
+highlight! link semshiImported TSInclude
+highlight! link semshiParameter TSParameter
 highlight! link semshiParameterUnused Grey
-highlight! link semshiSelf PurpleItalic
-highlight! link semshiGlobal Yellow
-highlight! link semshiBuiltin Yellow
-highlight! link semshiAttribute Aqua
-highlight! link semshiLocal Red
-highlight! link semshiFree Red
+highlight! link semshiSelf TSVariableBuiltin
+highlight! link semshiGlobal TSType
+highlight! link semshiBuiltin TSTypeBuiltin
+highlight! link semshiAttribute TSAttribute
+highlight! link semshiLocal TSKeyword
+highlight! link semshiFree TSKeyword
 highlight! link semshiSelected CurrentWord
 highlight! link semshiErrorSign RedSign
 highlight! link semshiErrorChar RedSign
@@ -1920,6 +1966,15 @@ highlight! link matlabArithmeticOperator Orange
 highlight! link matlabRelationalOperator Orange
 highlight! link matlabRelationalOperator Orange
 highlight! link matlabLogicalOperator Orange
+" }}}
+" ft_end }}}
+" ft_begin: octave {{{
+" vim-octave: https://github.com/McSinyx/vim-octave{{{
+highlight! link octaveDelimiter Fg
+highlight! link octaveSemicolon Grey
+highlight! link octaveOperator Orange
+highlight! link octaveVariable YellowItalic
+highlight! link octaveVarKeyword YellowItalic
 " }}}
 " ft_end }}}
 " ft_begin: sh/zsh {{{

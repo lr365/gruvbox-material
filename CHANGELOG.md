@@ -17,6 +17,9 @@ All notable changes to this project will be documented in this file.
 - Add installation guide for using pack feature.
 - New value `'mix'` for `g:gruvbox_material_statusline_style`.
 - Add `g:gruvbox_material_show_eob`.
+- Optimize `McSinyx/vim-octave`.
+- Support semantic highlight in coc.nvim .
+- Optimize semantic highlight in some plugins.
 
 ### Changed
 
