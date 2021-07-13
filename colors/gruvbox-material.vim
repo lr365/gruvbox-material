@@ -10,7 +10,7 @@
 let s:configuration = gruvbox_material#get_configuration()
 let s:palette = gruvbox_material#get_palette(s:configuration.background, s:configuration.palette)
 let s:path = expand('<sfile>:p') " the path of this script
-let s:last_modified = 'Sat May 22 02:21:58 AM UTC 2021'
+let s:last_modified = 'Sun Jul 11 10:38:18 AM UTC 2021'
 let g:gruvbox_material_loaded_file_types = []
 
 if !(exists('g:colors_name') && g:colors_name ==# 'gruvbox-material' && s:configuration.better_performance)
@@ -36,7 +36,7 @@ if s:configuration.transparent_background
   else
     call gruvbox_material#highlight('EndOfBuffer', s:palette.bg0, s:palette.none)
   endif
-  call gruvbox_material#highlight('FoldColumn', s:palette.grey0, s:palette.none)
+  call gruvbox_material#highlight('FoldColumn', s:palette.bg5, s:palette.none)
   call gruvbox_material#highlight('Folded', s:palette.grey1, s:palette.none)
   call gruvbox_material#highlight('SignColumn', s:palette.fg0, s:palette.none)
   call gruvbox_material#highlight('ToolbarLine', s:palette.fg0, s:palette.none)
@@ -52,16 +52,16 @@ else
   call gruvbox_material#highlight('ToolbarLine', s:palette.fg1, s:palette.bg3)
   if s:configuration.sign_column_background ==# 'default'
     call gruvbox_material#highlight('SignColumn', s:palette.fg0, s:palette.bg2)
-    call gruvbox_material#highlight('FoldColumn', s:palette.grey0, s:palette.bg2)
+    call gruvbox_material#highlight('FoldColumn', s:palette.grey1, s:palette.bg2)
   else
     call gruvbox_material#highlight('SignColumn', s:palette.fg0, s:palette.none)
-    call gruvbox_material#highlight('FoldColumn', s:palette.grey0, s:palette.none)
+    call gruvbox_material#highlight('FoldColumn', s:palette.bg5, s:palette.none)
   endif
 endif
 call gruvbox_material#highlight('IncSearch', s:palette.bg0, s:palette.bg_red)
 call gruvbox_material#highlight('Search', s:palette.bg0, s:palette.bg_green)
 call gruvbox_material#highlight('ColorColumn', s:palette.none, s:palette.bg2)
-call gruvbox_material#highlight('Conceal', s:palette.grey0, s:palette.none)
+call gruvbox_material#highlight('Conceal', s:palette.bg5, s:palette.none)
 if s:configuration.cursor ==# 'auto'
   call gruvbox_material#highlight('Cursor', s:palette.none, s:palette.none, 'reverse')
 else
@@ -78,13 +78,13 @@ else
   call gruvbox_material#highlight('CursorLine', s:palette.none, s:palette.bg1)
   call gruvbox_material#highlight('CursorColumn', s:palette.none, s:palette.bg1)
 endif
-call gruvbox_material#highlight('LineNr', s:palette.grey0, s:palette.none)
+call gruvbox_material#highlight('LineNr', s:palette.bg5, s:palette.none)
 if &diff
-  call gruvbox_material#highlight('CursorLineNr', s:palette.grey2, s:palette.none, 'underline')
+  call gruvbox_material#highlight('CursorLineNr', s:palette.grey1, s:palette.none, 'underline')
 elseif (&relativenumber == 1 && &cursorline == 0) || s:configuration.sign_column_background !=# 'default'
-  call gruvbox_material#highlight('CursorLineNr', s:palette.grey2, s:palette.none)
+  call gruvbox_material#highlight('CursorLineNr', s:palette.grey1, s:palette.none)
 else
-  call gruvbox_material#highlight('CursorLineNr', s:palette.grey2, s:palette.bg1)
+  call gruvbox_material#highlight('CursorLineNr', s:palette.grey1, s:palette.bg1)
 endif
 call gruvbox_material#highlight('DiffAdd', s:palette.none, s:palette.bg_diff_green)
 call gruvbox_material#highlight('DiffChange', s:palette.none, s:palette.bg_diff_blue)
@@ -451,7 +451,7 @@ highlight! link TSRepeat Red
 highlight! link TSString Aqua
 highlight! link TSStringEscape Green
 highlight! link TSStringRegex Green
-highlight! link TSStructure Yellow
+highlight! link TSStructure BlueItalic
 highlight! link TSSymbol Fg
 highlight! link TSTag Orange
 highlight! link TSTagDelimiter Green
@@ -467,6 +467,7 @@ highlight! link TSVariableBuiltin BlueItalic
 " neoclide/coc.nvim {{{
 call gruvbox_material#highlight('CocHoverRange', s:palette.none, s:palette.none, 'bold,underline')
 highlight! link CocSem_angle TSTagDelimiter
+highlight! link CocSem_annotation TSOperator
 highlight! link CocSem_attribute TSAttribute
 highlight! link CocSem_bitwise TSOperator
 highlight! link CocSem_boolean TSBoolean
@@ -483,9 +484,10 @@ highlight! link CocSem_comparison TSOperator
 highlight! link CocSem_constParameter TSParameter
 highlight! link CocSem_dependent TSInclude
 highlight! link CocSem_dot TSOperator
-highlight! link CocSem_enum TSType
-highlight! link CocSem_enumMember TSProperty
+highlight! link CocSem_enum TSStructure
+highlight! link CocSem_enumMember TSVariable
 highlight! link CocSem_escapeSequence TSStringEscape
+highlight! link CocSem_event TSType
 highlight! link CocSem_formatSpecifier TSStringEscape
 highlight! link CocSem_function TSFunction
 highlight! link CocSem_interface TSType
@@ -494,13 +496,14 @@ highlight! link CocSem_label TSLabel
 highlight! link CocSem_logical TSOperator
 highlight! link CocSem_macro TSConstMacro
 highlight! link CocSem_method TSMethod
+highlight! link CocSem_modifier TSKeywordOperator
 highlight! link CocSem_namespace TSNamespace
 highlight! link CocSem_number TSNumber
 highlight! link CocSem_operator TSOperator
 highlight! link CocSem_parameter TSParameter
 highlight! link CocSem_parenthesis TSPunctBracket
-highlight! link CocSem_property TSProperty
-highlight! link CocSem_punctuation TSPunctDelimiter
+highlight! link CocSem_property TSVariable
+highlight! link CocSem_punctuation TSOperator
 highlight! link CocSem_regexp TSStringRegex
 highlight! link CocSem_selfKeyword TSConstBuiltin
 highlight! link CocSem_semicolon TSPunctDelimiter
@@ -785,7 +788,6 @@ let g:VM_Cursor_hl = 'Cursor'
 let g:VM_Insert_hl = 'Cursor'
 " }}}
 " dominikduda/vim_current_word {{{
-highlight! link CurrentWord CurrentWord
 highlight! link CurrentWordTwins CurrentWord
 " }}}
 " RRethy/vim-illuminate {{{
@@ -796,14 +798,40 @@ highlight! link CursorWord0 CurrentWord
 highlight! link CursorWord1 CurrentWord
 " }}}
 " Yggdroot/indentLine {{{
-let g:indentLine_color_gui = s:palette.grey0[0]
-let g:indentLine_color_term = s:palette.grey0[1]
+let g:indentLine_color_gui = s:palette.bg5[0]
+let g:indentLine_color_term = s:palette.bg5[1]
+" }}}
+" lukas-reineke/indent-blankline.nvim {{{
+call gruvbox_material#highlight('IndentBlanklineContextChar', s:palette.grey0, s:palette.none)
+highlight! link IndentBlanklineChar Conceal
+highlight! link IndentBlanklineSpaceChar Conceal
+highlight! link IndentBlanklineSpaceCharBlankline Conceal
 " }}}
 " nathanaelkane/vim-indent-guides {{{
 if get(g:, 'indent_guides_auto_colors', 1) == 0
   call gruvbox_material#highlight('IndentGuidesOdd', s:palette.bg0, s:palette.bg2)
   call gruvbox_material#highlight('IndentGuidesEven', s:palette.bg0, s:palette.bg3)
 endif
+" }}}
+" thiagoalessio/rainbow_levels.vim {{{
+highlight! link RainbowLevel0 Red
+highlight! link RainbowLevel1 Orange
+highlight! link RainbowLevel2 Yellow
+highlight! link RainbowLevel3 Green
+highlight! link RainbowLevel4 Aqua
+highlight! link RainbowLevel5 Blue
+highlight! link RainbowLevel6 Purple
+highlight! link RainbowLevel7 Yellow
+highlight! link RainbowLevel8 Green
+" }}}
+" p00f/nvim-ts-rainbow {{{
+highlight! link rainbowcol1 Red
+highlight! link rainbowcol2 Orange
+highlight! link rainbowcol3 Yellow
+highlight! link rainbowcol4 Green
+highlight! link rainbowcol5 Aqua
+highlight! link rainbowcol6 Blue
+highlight! link rainbowcol7 Purple
 " }}}
 " luochen1990/rainbow {{{
 if !exists('g:rbpt_colorpairs')
@@ -1622,10 +1650,10 @@ highlight! link cppSTLexception Purple
 highlight! link cppSTLVariable Aqua
 " }}}
 " chromatica: https://github.com/arakashic/chromatica.nvim {{{
-highlight! link Member TSProperty
+highlight! link Member TSVariable
 highlight! link Variable TSVariable
 highlight! link Namespace TSNamespace
-highlight! link EnumConstant TSType
+highlight! link EnumConstant TSStructure
 highlight! link chromaticaException TSException
 highlight! link chromaticaCast TSLabel
 highlight! link OperatorOverload TSOperator
@@ -1636,9 +1664,9 @@ highlight! link AutoType TSType
 " vim-lsp-cxx-highlight https://github.com/jackguo380/vim-lsp-cxx-highlight {{{
 highlight! link LspCxxHlSkippedRegion Grey
 highlight! link LspCxxHlSkippedRegionBeginEnd TSKeyword
-highlight! link LspCxxHlGroupEnumConstant TSType
+highlight! link LspCxxHlGroupEnumConstant TSStructure
 highlight! link LspCxxHlGroupNamespace TSNamespace
-highlight! link LspCxxHlGroupMemberVariable TSProperty
+highlight! link LspCxxHlGroupMemberVariable TSVariable
 " }}}
 " ft_end }}}
 " ft_begin: objc {{{
